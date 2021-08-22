@@ -9,7 +9,7 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         features = {"src/test/java/Features"},
         glue = "Steps",
-        tags = "@orders",
+        tags = "@order",
         plugin = {"com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:", "json:target/positive/cucumber.json", "pretty", "html:target/positive/cucumber.html"},
         dryRun = false,
         monochrome = true

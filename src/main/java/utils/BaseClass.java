@@ -1,10 +1,8 @@
 package utils;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.BeforeMethod;
@@ -70,6 +68,12 @@ public class BaseClass {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h1[contains(text(),'" +text+ "')]")));
     }
 
+
+    public WebElement optionContainsText(String text){
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//option[contains(text(),'" +text+ "')]")));
+    }
+
     public WebElement buttonContainsText(String text){
         WebDriverWait wait = new WebDriverWait(driver, 10);
         return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[contains(text(),'" +text+ "')]")));
@@ -85,6 +89,11 @@ public class BaseClass {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'"+text+"')]")));
     }
 
+    public WebElement pContainsText(String text){
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'"+text+"')]")));
+    }
+
     public void scrollIntoView(WebElement element){
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].scrollIntoView(true);", element);
@@ -94,6 +103,20 @@ public class BaseClass {
         obj.findElement(By.xpath("/html/body/div/div[2]/button[3]")).click();
         obj.findElement(By.xpath("/html/body/div/div[3]/p[2]/a")).click();
     }
+
+    public static void clickAnywhereOnPage() {
+        Actions actions = new Actions(driver);
+        actions.click().build().perform();
+    }
+    public static void pressEscape() {
+        Actions action = new Actions(driver);
+        action.sendKeys(Keys.ESCAPE).build().perform();
+    }
+
+
+
+
+
 
     public static String randomDate() {
 

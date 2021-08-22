@@ -4,8 +4,10 @@ import java.io.IOException;
 
 import Pages.LoginPage;
 import Pages.OrdersPage;
+import gherkin.lexer.Th;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.When;
+import org.apache.poi.ss.formula.functions.T;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import io.cucumber.java.en.And;
@@ -132,20 +134,21 @@ public class steps extends BaseClass {
         spanContainsText("My Profile").isDisplayed();
     }
 
-    @Given("^User clicks on orders$")
-    public void user_clicks_on_orders() throws Throwable {
-        spanContainsText("Orders").click();
+    @Given("^User clicks on \"([^\"]*)\" tab$")
+    public void user_clicks_on_something_tab(String strArg1) throws Throwable {
+        spanContainsText(strArg1).click();
 
         spanContainsText("View").isDisplayed();
+        anchortagContainsText("Orders").isDisplayed();
         anchortagContainsText("Add").isDisplayed();
         anchortagContainsText("Search").isDisplayed();
         anchortagContainsText("Export").isDisplayed();
 
     }
 
-    @When("^clicks Add orders$")
-    public void clicks_add_orders() throws Throwable {
-        anchortagContainsText("Add").click();
+    @When("^clicks \"([^\"]*)\" orders$")
+    public void clicks_something_orders(String strArg1) throws Throwable {
+        anchortagContainsText(strArg1).click();
     }
 
     @Then("^\"([^\"]*)\" page is displayed$")
@@ -180,10 +183,12 @@ public class steps extends BaseClass {
 
     }
 
-    @And("^clicks next button$")
-    public void clicks_next_button() throws Throwable {
-        buttonContainsText("Next").click();
+    @And("^clicks \"([^\"]*)\" button$")
+    public void clicks_something_button(String strArg1) throws Throwable {
+        buttonContainsText(strArg1).click();
     }
+
+
 
     @And("^switch to default frame$")
     public void switch_to_default_frame() throws Throwable {
@@ -192,6 +197,7 @@ public class steps extends BaseClass {
 
     @Then("^navigated to \"([^\"]*)\"$")
     public void navigated_to_something(String strArg1) throws Throwable {
+
         spanContainsText(strArg1).isDisplayed();
 
     }
@@ -204,5 +210,59 @@ public class steps extends BaseClass {
     @And("^enters quantity \"([^\"]*)\"$")
     public void enters_quantity_something(String strArg1) throws Throwable {
         ordersPage.enterQty(strArg1);
+        Thread.sleep(2000);
+        pressEscape();
+        //        Getting invalid product quantity
+//        ordersPage.closeDialogueBox();
     }
+
+    @And("^validates subTotal$")
+    public void validates_subtotal() throws Throwable {
+//        Check if calculated total is displayed on page
+        spanContainsText(ordersPage.orderTotal()).isDisplayed();
+    }
+
+    @When("^user selects payment as \"([^\"]*)\"$")
+    public void user_selects_payment_as_something(String strArg1) throws Throwable {
+        ordersPage.selectPaymentMethod(strArg1);
+    }
+
+    @Then("^order is made successfully$")
+    public void order_is_made_successfully() throws Throwable {
+        h1ContainsText("View Orders").isDisplayed();
+        sharedatastep.orderID=ordersPage.grabOrderId();
+        System.out.println(sharedatastep.orderID);
+
+    }
+    @When("^user views order under \"([^\"]*)\"$")
+    public void user_views_order_under_something(String strArg1) throws Throwable {
+        ordersPage.viewForReview(strArg1);
+    }
+
+    @Then("^\"([^\"]*)\" tab is displayed$")
+    public void something_tab_is_displayed(String strArg1) throws Throwable {
+        anchortagContainsText(strArg1).isDisplayed();
+    }
+
+    @When("^user searches the order$")
+    public void user_searches_the_order() throws Throwable {
+        ordersPage.searchOrderByOrderID(sharedatastep.orderID);
+//        ordersPage.searchOrderByOrderID("865");
+    }
+
+    @And("^Order has status of \"([^\"]*)\"$")
+    public void order_has_status_of_something(String strArg1) throws Throwable {
+        Thread.sleep(3000);
+        Assert.assertTrue(ordersPage.orderStatus(strArg1));
+    }
+    @And("^changes order to status of \"([^\"]*)\"$")
+    public void changes_order_to_status_of_something(String strArg1) throws Throwable {
+        ordersPage.changeOrderTo(strArg1);
+    }
+    @Then("^order status should be \"([^\"]*)\"$")
+    public void order_status_should_be_something(String strArg1) throws Throwable {
+        Thread.sleep(3000);
+        optionContainsText(strArg1).isDisplayed();
+    }
+
 }

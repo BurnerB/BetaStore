@@ -18,24 +18,43 @@ Feature: orders feature
     And user validates the sidebar fields
 
 
-  @orders
-  Scenario: User enters order for Existing customer
-    Given User clicks on orders
-    When clicks Add orders
+  @order
+  Scenario: Make single order for existing customer
+    Given User clicks on "Orders" tab
+    When clicks "Add" orders
     And switch to content frame
     Then "Add an Order" page is displayed
     And searches for customer "Benja Test"
     Then customer billing address should be listed
     When user selects the address to be used
-    And clicks next button
+    And clicks "Next" button
     Then navigated to "Add Products"
     When user searches for orders "Auntie B Spaghetinni 500g x 20"
-    And enters quantity "4"
-    And clicks next button
+    And enters quantity "1"
+#    And validates subTotal
+    And clicks "Next" button
     Then navigated to "Shipping"
-    And clicks next button
-    Then navigated to "Customer Billing DetailsCustomer Billing Details"
-    When user selects payment as "pay as delivery"
+    And clicks "Next" button
+    Then navigated to "Finalize"
+    When user selects payment as "Cash on Delivery"
+    And clicks "Save & Process Payment »" button
+    Then order is made successfully
+
+  @order @order-status
+  Scenario: Change status of made order
+    Given User clicks on "Orders" tab
+    When clicks "View" orders
+    And switch to content frame
+    When user views order under "For Review"
+    Then "For Review" tab is displayed
+    When user searches the order
+    And Order has status of "Pending"
+    And changes order to status of "Awaiting Fulfillment"
+    Then order status should be "Awaiting Fulfillment"
+
+
+
+
 
 
 
