@@ -8,8 +8,6 @@ import io.cucumber.java.Before;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.*;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -33,7 +31,6 @@ public class steps extends BaseClass {
         loginPage = new LoginPage();
         ordersPage = new OrdersPage();
     }
-
 
     @Given("^User navigates to the page \"([^\"]*)\"$")
     public void user_navigates_to_the_page_something(String strArg1) throws Throwable {
@@ -89,7 +86,6 @@ public class steps extends BaseClass {
         Assert.assertTrue(OTPemail.isDisplayed());
 
     }
-
     @When("^user clicks email and grabs the otp generated$")
     public void user_clicks_email_and_grabs_the_otp_generated() throws Throwable {
 //      click otp email and print out total number of unread emails
@@ -101,7 +97,6 @@ public class steps extends BaseClass {
         System.out.println(sharedatastep.OTPcode);
 
     }
-
 
     @Then("User should be loggedin")
     public void userShouldBeLoggedin() throws InterruptedException {
@@ -198,5 +193,16 @@ public class steps extends BaseClass {
     @Then("^navigated to \"([^\"]*)\"$")
     public void navigated_to_something(String strArg1) throws Throwable {
         spanContainsText(strArg1).isDisplayed();
+
+    }
+
+    @When("^user searches for orders \"([^\"]*)\"$")
+    public void user_searches_for_orders_something(String strArg1) throws Throwable {
+        ordersPage.searchOrder(strArg1);
+    }
+
+    @And("^enters quantity \"([^\"]*)\"$")
+    public void enters_quantity_something(String strArg1) throws Throwable {
+        ordersPage.enterQty(strArg1);
     }
 }

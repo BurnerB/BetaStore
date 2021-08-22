@@ -29,6 +29,13 @@ Feature: orders feature
     When user selects the address to be used
     And clicks next button
     Then navigated to "Add Products"
+    When user searches for orders "Auntie B Spaghetinni 500g x 20"
+    And enters quantity "4"
+    And clicks next button
+    Then navigated to "Shipping"
+    And clicks next button
+    Then navigated to "Customer Billing DetailsCustomer Billing Details"
+    When user selects payment as "pay as delivery"
 
 
 
