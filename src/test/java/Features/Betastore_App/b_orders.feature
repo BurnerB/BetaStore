@@ -18,7 +18,7 @@ Feature: orders feature
     And user validates the sidebar fields
 
 
-# @order
+ @order
   Scenario: Make single order for existing customer
     Given User clicks on "Orders" tab
     When clicks "Add" orders
@@ -59,7 +59,7 @@ Feature: orders feature
     And clicks "Save & Process Payment »" button
     Then order is made successfully
 
-#  @order @order-status
+  @order @order-status
   Scenario: Change status of successful order
     Given User clicks on "Orders" tab
     When clicks "View" orders
