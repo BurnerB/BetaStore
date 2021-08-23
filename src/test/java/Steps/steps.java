@@ -4,10 +4,8 @@ import java.io.IOException;
 
 import Pages.LoginPage;
 import Pages.OrdersPage;
-import gherkin.lexer.Th;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.When;
-import org.apache.poi.ss.formula.functions.T;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import io.cucumber.java.en.And;
@@ -93,9 +91,7 @@ public class steps extends BaseClass {
 //      click otp email and print out total number of unread emails
         System.out.println("Total No. of Unread Mails: " + loginPage.clickEmail());
 
-        String OTP=loginPage.getOTP("No, this wasn’t me – secure my account.");
-
-        sharedatastep.OTPcode = OTP;
+        sharedatastep.OTPcode = loginPage.getOTP("No, this wasn’t me – secure my account.");
         System.out.println(sharedatastep.OTPcode);
 
     }
@@ -197,9 +193,12 @@ public class steps extends BaseClass {
 
     @Then("^navigated to \"([^\"]*)\"$")
     public void navigated_to_something(String strArg1) throws Throwable {
-
         spanContainsText(strArg1).isDisplayed();
+    }
 
+    @When("^user searches for orders in exel \"([^\"]*)\" and set random quantity$")
+    public void user_searches_for_orders_in_exel_something_and_set_random_quantity(String strArg1) throws Throwable {
+        OrdersPage.readExcel(strArg1);
     }
 
     @When("^user searches for orders \"([^\"]*)\"$")
@@ -212,8 +211,7 @@ public class steps extends BaseClass {
         ordersPage.enterQty(strArg1);
         Thread.sleep(2000);
         pressEscape();
-        //        Getting invalid product quantity
-//        ordersPage.closeDialogueBox();
+
     }
 
     @And("^validates subTotal$")

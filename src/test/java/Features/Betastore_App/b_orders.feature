@@ -18,7 +18,7 @@ Feature: orders feature
     And user validates the sidebar fields
 
 
-  @order
+# @order
   Scenario: Make single order for existing customer
     Given User clicks on "Orders" tab
     When clicks "Add" orders
@@ -31,7 +31,6 @@ Feature: orders feature
     Then navigated to "Add Products"
     When user searches for orders "Auntie B Spaghetinni 500g x 20"
     And enters quantity "1"
-#    And validates subTotal
     And clicks "Next" button
     Then navigated to "Shipping"
     And clicks "Next" button
@@ -40,8 +39,28 @@ Feature: orders feature
     And clicks "Save & Process Payment »" button
     Then order is made successfully
 
-  @order @order-status
-  Scenario: Change status of made order
+  @order-test @order
+  Scenario: Make multiple orders order for existing customer
+    Given User clicks on "Orders" tab
+    When clicks "Add" orders
+    And switch to content frame
+    Then "Add an Order" page is displayed
+    And searches for customer "Benja Test"
+    Then customer billing address should be listed
+    When user selects the address to be used
+    And clicks "Next" button
+    Then navigated to "Add Products"
+    When user searches for orders in exel "src/test/resources/Objects/Order_SKU.xlsx" and set random quantity
+#    And clicks "Next" button
+#    Then navigated to "Shipping"
+#    And clicks "Next" button
+#    Then navigated to "Finalize"
+#    When user selects payment as "Cash on Delivery"
+#    And clicks "Save & Process Payment »" button
+#    Then order is made successfully
+
+#  @order @order-status
+  Scenario: Change status of successful order
     Given User clicks on "Orders" tab
     When clicks "View" orders
     And switch to content frame
