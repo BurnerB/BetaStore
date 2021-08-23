@@ -51,13 +51,13 @@ Feature: orders feature
     And clicks "Next" button
     Then navigated to "Add Products"
     When user searches for orders in exel "src/test/resources/Objects/Order_SKU.xlsx" and set random quantity
-#    And clicks "Next" button
-#    Then navigated to "Shipping"
-#    And clicks "Next" button
-#    Then navigated to "Finalize"
-#    When user selects payment as "Cash on Delivery"
-#    And clicks "Save & Process Payment »" button
-#    Then order is made successfully
+    And clicks "Next" button
+    Then navigated to "Shipping"
+    And clicks "Next" button
+    Then navigated to "Finalize"
+    When user selects payment as "Cash on Delivery"
+    And clicks "Save & Process Payment »" button
+    Then order is made successfully
 
 #  @order @order-status
   Scenario: Change status of successful order
